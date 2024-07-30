@@ -20,7 +20,11 @@ export const MainPage = () => {
   return (
     <div className="flex justify-center items-center h-[80vh]">
       <div className=" w-[30%] flex justify-center items-center h-[100%]   flex-col">
-        <div className=" flex flex-col w-full p-6 shadow-xl shadow-red-500 border-solid">
+        <div
+          className={`flex flex-col w-full p-6 shadow-xl ${
+            loading ? " shadow-red-500" : "shadow-blue-500"
+          }`}
+        >
           <div className="flex justify-between items-center mb-1">
             <div className="left">From</div>
             <div className="right">To</div>
@@ -28,7 +32,7 @@ export const MainPage = () => {
           <div className="inputs flex">
             <select
               value={fromValue}
-              className="w-full p-2  border-none outline-none"
+              className="w-full p-2  border-none outline-none shadow-md"
               onChange={(e) => setFromValue(e.target.value)}
               name=""
               id=""
@@ -43,7 +47,7 @@ export const MainPage = () => {
             </select>
             <select
               value={toValue}
-              className="w-full p-2  ml-2 border-none outline-none"
+              className="w-full p-2  ml-2 border-none outline-none shadow-md"
               onChange={(e) => setToValue(e.target.value)}
               name=""
               id=""
@@ -67,11 +71,11 @@ export const MainPage = () => {
           <Button
             loading={loading}
             onClick={handleOnClick}
-            className="mt-3 w-full border-none p-2 cursor-pointer"
+            className="mt-3 w-full border-none p-2 cursor-pointer shadow-md"
           >
             {loading ? "Loading" : "Convert"}
           </Button>
-          <h3 className="text-center mt-5">Result: {convertedValue}</h3>
+          <h4 className="text-center mt-5">Result: {convertedValue}</h4>
         </div>
       </div>
     </div>

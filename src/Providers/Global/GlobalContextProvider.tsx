@@ -29,7 +29,7 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
       setCovertedValue(resp.data.rates[to] + to);
       setTimeout(() => {
         setCovertedValue("");
-      }, 3000);
+      }, 2000);
     } catch (error: any) {
       alert(error.message);
       console.error(error.message);
