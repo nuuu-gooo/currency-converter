@@ -26,7 +26,7 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
         `latest?amount=${amount}&from=${from}&to=${to}`
       );
 
-      setCovertedValue(resp.data.rates[to] + to);
+      setCovertedValue(resp.data.rates[to] + "" + "" + to);
       setTimeout(() => {
         setCovertedValue("");
       }, 10000);

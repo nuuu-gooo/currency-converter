@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../Providers/Global/GlobalContext";
 import { Button } from "antd";
 import { FooterComp } from "../../Components/Footer/FooterComp";
@@ -23,11 +23,16 @@ export const MainPage = () => {
     }, 10000);
   };
 
-  const handleSwitchLogic = () => {
+  const handleSwitchLogic = async () => {
     setFromValue(toValue);
     setToValue(fromValue);
-    getConvertedValue(amount, fromValue, toValue);
   };
+
+  useEffect(() => {
+    if (fromValue && toValue && amount) {
+      getConvertedValue(amount, fromValue, toValue);
+    }
+  }, [fromValue, toValue]);
 
   return (
     <div className="flex justify-center items-center h-[80vh]">
@@ -94,7 +99,9 @@ export const MainPage = () => {
           >
             {loading ? "Loading" : "Convert"}
           </Button>
-          <h4 className="text-center mt-5">Result: {convertedValue}</h4>
+          <h4 className="text-center mt-5">
+            Result: <span className="text-[red]">{convertedValue}</span>
+          </h4>
         </div>
         <FooterComp />
       </div>
