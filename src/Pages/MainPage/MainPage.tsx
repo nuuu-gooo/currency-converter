@@ -2,6 +2,8 @@ import React, { useContext, useState } from "react";
 import { GlobalContext } from "../../Providers/Global/GlobalContext";
 import { Button } from "antd";
 import { FooterComp } from "../../Components/Footer/FooterComp";
+import { FaGroupArrowsRotate } from "react-icons/fa6";
+import { GoArrowSwitch } from "react-icons/go";
 
 export const MainPage = () => {
   const [fromValue, setFromValue] = useState<string>("");
@@ -13,9 +15,18 @@ export const MainPage = () => {
 
   const handleOnClick = async () => {
     getConvertedValue(amount, fromValue, toValue);
-    setFromValue("");
-    setToValue("");
-    setAmount("");
+
+    setTimeout(() => {
+      setFromValue("");
+      setToValue("");
+      setAmount("");
+    }, 10000);
+  };
+
+  const handleSwitchLogic = () => {
+    setFromValue(toValue);
+    setToValue(fromValue);
+    getConvertedValue(amount, fromValue, toValue);
   };
 
   return (
@@ -46,7 +57,12 @@ export const MainPage = () => {
                 );
               })}
             </select>
-
+            <button
+              onClick={handleSwitchLogic}
+              className="mr-3 ml-3 w-full shadow-md bg-transparent  border-none"
+            >
+              <GoArrowSwitch />
+            </button>
             <select
               value={toValue}
               className="w-full p-2  ml-2 border-none outline-none shadow-md "
