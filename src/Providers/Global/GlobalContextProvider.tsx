@@ -5,6 +5,7 @@ import { publicAxios } from "../../utils/API/publicAxios";
 export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
   const [allCurrencies, setAllCurrencies] = useState<string[]>([]);
   const [convertedValue, setCovertedValue] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const getALlCurrencies = async () => {
     const resp = await publicAxios.get("/currencies");
     setAllCurrencies(resp.data);
@@ -19,11 +20,22 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
     from: string,
     to: string
   ) => {
-    const resp = await publicAxios.post(
-      `/amount=${amount}&from=${from}&to=${to}`
-    );
+    try {
+      setLoading(true);
+      const resp = await publicAxios.post(
+        `latest?amount=${amount}&from=${from}&to=${to}`
+      );
 
-    console.log(resp.data);
+      setCovertedValue(resp.data.rates[to] + to);
+      setTimeout(() => {
+        setCovertedValue("");
+      }, 3000);
+    } catch (error: any) {
+      alert(error.message);
+      console.error(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -34,6 +46,8 @@ export const GlobalContextProvider = ({ children }: PropsWithChildren) => {
         getConvertedValue,
         convertedValue,
         setCovertedValue,
+        setLoading,
+        loading,
       }}
     >
       {children}

@@ -1,12 +1,22 @@
 import React, { useContext, useState } from "react";
 import { GlobalContext } from "../../Providers/Global/GlobalContext";
+import { Button } from "antd";
 
 export const MainPage = () => {
   const [fromValue, setFromValue] = useState<string>("");
   const [toValue, setToValue] = useState<string>("");
-  const { allCurrencies } = useContext(GlobalContext);
+  const [amount, setAmount] = useState<string>("");
+  const { allCurrencies, getConvertedValue, convertedValue, loading } =
+    useContext(GlobalContext);
   const allCurrencesObjects = Object.keys(allCurrencies);
-  console.log(fromValue, toValue);
+
+  const handleOnClick = async () => {
+    getConvertedValue(amount, fromValue, toValue);
+    setFromValue("");
+    setToValue("");
+    setAmount("");
+  };
+
   return (
     <div className="flex justify-center items-center h-[80vh]">
       <div className=" w-[30%] flex justify-center items-center h-[100%]   flex-col">
@@ -17,6 +27,7 @@ export const MainPage = () => {
           </div>
           <div className="inputs flex">
             <select
+              value={fromValue}
               className="w-full p-2  border-none outline-none"
               onChange={(e) => setFromValue(e.target.value)}
               name=""
@@ -31,6 +42,7 @@ export const MainPage = () => {
               })}
             </select>
             <select
+              value={toValue}
               className="w-full p-2  ml-2 border-none outline-none"
               onChange={(e) => setToValue(e.target.value)}
               name=""
@@ -46,14 +58,20 @@ export const MainPage = () => {
             </select>
           </div>
           <input
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
             placeholder="Enter Amount"
             className="w-full  border-none mt-1 p-2 outline-none"
             type=""
           />
-          <button className="mt-3 w-full border-none p-2 cursor-pointer">
-            Convert
-          </button>
-          <h3 className="text-center mt-5">Result:</h3>
+          <Button
+            loading={loading}
+            onClick={handleOnClick}
+            className="mt-3 w-full border-none p-2 cursor-pointer"
+          >
+            {loading ? "Loading" : "Convert"}
+          </Button>
+          <h3 className="text-center mt-5">Result: {convertedValue}</h3>
         </div>
       </div>
     </div>

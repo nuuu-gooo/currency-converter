@@ -1,9 +1,11 @@
-import { createContext } from "react";
+import React, { createContext } from "react";
 
 interface TGLobalContext {
   setAllCurrencies: React.Dispatch<React.SetStateAction<string[]>>;
   allCurrencies: string[];
   convertedValue: string;
+  loading: boolean;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setCovertedValue: React.Dispatch<React.SetStateAction<string>>;
   getConvertedValue: (
     amount: string,
@@ -15,7 +17,9 @@ interface TGLobalContext {
 export const GlobalContext = createContext<TGLobalContext>({
   allCurrencies: [],
   convertedValue: "",
+  loading: true,
   setAllCurrencies: () => {},
-  getConvertedValue: async () => {},
   setCovertedValue: () => {},
+  getConvertedValue: async () => {},
+  setLoading: () => {},
 });
