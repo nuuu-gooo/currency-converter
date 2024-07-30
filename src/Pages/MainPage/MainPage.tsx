@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { GlobalContext } from "../../Providers/Global/GlobalContext";
 import { Button } from "antd";
+import { FooterComp } from "../../Components/Footer/FooterComp";
 
 export const MainPage = () => {
   const [fromValue, setFromValue] = useState<string>("");
@@ -22,7 +23,7 @@ export const MainPage = () => {
       <div className=" w-[30%] flex justify-center items-center h-[100%]   flex-col">
         <div
           className={`flex flex-col w-full p-6 shadow-xl ${
-            loading ? " shadow-red-500" : "shadow-blue-500"
+            loading ? " shadow-green-500" : "shadow-blue-500"
           }`}
         >
           <div className="flex justify-between items-center mb-1">
@@ -77,6 +78,7 @@ export const MainPage = () => {
           </Button>
           <h4 className="text-center mt-5">Result: {convertedValue}</h4>
         </div>
+        <FooterComp />
       </div>
     </div>
   );
