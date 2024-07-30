@@ -22,7 +22,7 @@ export const MainPage = () => {
     <div className="flex justify-center items-center h-[80vh]">
       <div className=" w-[30%] flex justify-center items-center h-[100%]   flex-col">
         <div
-          className={`flex flex-col w-full p-6 shadow-xl ${
+          className={`min-w-[390px] max-w-[400px]   flex flex-col w-full p-6 shadow-xl  ${
             loading ? " shadow-green-500" : "shadow-blue-500"
           }`}
         >
@@ -46,9 +46,10 @@ export const MainPage = () => {
                 );
               })}
             </select>
+
             <select
               value={toValue}
-              className="w-full p-2  ml-2 border-none outline-none shadow-md"
+              className="w-full p-2  ml-2 border-none outline-none shadow-md "
               onChange={(e) => setToValue(e.target.value)}
               name=""
               id=""
@@ -72,6 +73,7 @@ export const MainPage = () => {
           <Button
             loading={loading}
             onClick={handleOnClick}
+            type="primary"
             className="mt-3 w-full border-none p-2 cursor-pointer shadow-md"
           >
             {loading ? "Loading" : "Convert"}
